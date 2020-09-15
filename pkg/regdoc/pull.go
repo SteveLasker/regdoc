@@ -1,11 +1,12 @@
 package regdoc
 
 import (
+	"github.com/containerd/containerd/remotes"
 	"github.com/deislabs/oras/pkg/oras"
 )
 
-func Pull(ref string) error {
-	ctx, resolver, store := newORASContext()
+func Pull(ref string, resolver remotes.Resolver) error {
+	ctx, store := newORASContext()
 
 	pullOpts := []oras.PullOpt{
 		oras.WithAllowedMediaType(ContentLayerMediaType),

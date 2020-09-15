@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/containerd/containerd/remotes"
-	"github.com/containerd/containerd/remotes/docker"
 	orascontent "github.com/deislabs/oras/pkg/content"
 	orascontext "github.com/deislabs/oras/pkg/context"
 )
@@ -19,11 +17,10 @@ func printStdout(a ...interface{}) {
 	fmt.Fprintln(os.Stdout, a...)
 }
 
-func newORASContext() (context.Context, remotes.Resolver, *orascontent.Memorystore) {
+func newORASContext() (context.Context, *orascontent.Memorystore) {
 	ctx := orascontext.Background()
-	resolver := docker.NewResolver(docker.ResolverOptions{})
 	memoryStore := orascontent.NewMemoryStore()
-	return ctx, resolver, memoryStore
+	return ctx, memoryStore
 }
 
 func readableSize(b int64) string {
